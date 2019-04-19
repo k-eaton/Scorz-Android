@@ -2,6 +2,9 @@ package info.scorz;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,19 +13,37 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import static android.app.PendingIntent.getActivity;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_main);
+
+        Spinner spinner = (Spinner)findViewById(R.id.locateSpinner);
+        spinner.setOnItemSelectedListener(this);
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_maps);
+//
+//        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
+//    }
 
 
     /**
@@ -43,6 +64,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sanFrancisco = new LatLng(37.75, -122.445);
 
         mMap.addMarker(new MarkerOptions().position(sanFrancisco).title("Welcome to San Francisco"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sanFrancisco, 12.5f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sanFrancisco, 12.25f));
     }
 }
